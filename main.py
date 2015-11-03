@@ -9,6 +9,5 @@ while r.status_code is not 200:
         r = requests.get(url)
 
 soup = BeautifulSoup(r.text)
-print type(soup)
-data = soup.find_all("NewDataSet")
+data = soup.find_all("table")
 print data
