@@ -9,5 +9,7 @@ while r.status_code is not 200:
         r = requests.get(url)
 
 soup = BeautifulSoup(r.text)
-data = soup.find_all("table")
-print data
+data = soup.find_all("state")
+state = list(set(map(str,[i.text for i in data])))
+state.sort()
+print state
