@@ -1,0 +1,113 @@
+<html>
+<head>
+  <title>Drishtiman</title>
+  <link rel="shortcut icon" href="static/css/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="static/css/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/animate.css" rel="stylesheet">
+  <link href = "static/css/index.css" rel = "stylesheet">
+  <script src="static/js/sweet-alert.min.js"></script>
+  <script src="static/js/ajax.js"></script>
+  <script src="static/js/index_threshold.js"></script>
+  <link rel="stylesheet" type="text/css" href="static/css/sweet-alert.css">
+  <script src="static/charts/Chart.js"></script>
+<script src="http://cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script
+</head>
+<body>
+  <div id = "full">
+  <div id = "custom">
+			<div class ="bounceInDown animated">
+			<img class = "img-responsive" width="7%" src="static/images/logo.png" alt="logo">
+                        <div id="heading">
+			<h2 class="text-center">Threshold Values</h2></div>
+			<a href="index" class="button_home">Home</a>
+			<a href="about" class="button_about">About</a>
+			<a href="threshold" class="button_threshold">Threshold</a>
+			<a href="report" class="button_report">Report</a>
+		</div>
+			
+		</div>
+<form class="testform">
+  
+	<div class="styled-select"><select name="Biscuit_type" class = "biscuit" id="selectElementId"></select></div>
+</form>                                                     
+<div id="round_values">
+  <div class="col-sm-1 col-xs-6">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="animated-number" id="min_dia" data-digit="2305" data-duration="1000">Nil</div>
+                        <div class="animated-text" data-digit="2305">Minmum Dia</div>
+                    </div>
+                </div>
+  <div class="col-sm-2 col-xs-6">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="animated-number" id="max_dia" data-digit="2305" data-duration="1000">Nil</div>
+                        <div class="animated-text" data-digit="2305">Maximum Dia</div>
+                    </div>
+                </div>
+  <div class="col-sm-3 col-xs-6">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="animated-number" id="ovality" data-digit="2305" data-duration="1000">Nil</div>
+                        <div class="animated-text" data-digit="2305">Ovality</div>
+                    </div>
+                </div>  
+  <div class="col-sm-5 col-xs-6">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="animated-number" id="under_baked" data-digit="2305" data-duration="1000">Nil</div>
+                        <div class="animated-text" data-digit="2305">Under Baked</div>
+                    </div>
+                </div>
+  <div class="col-sm-6 col-xs-6">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="animated-number" id="over_baked" data-digit="2305" data-duration="1000">Nil</div>
+                        <div class="animated-text" data-digit="2305">Over Baked</div>
+                    </div>
+                </div>
+  <div class="col-sm-7 col-xs-6" id="almond_value">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="animated-number" id="almond_area" data-digit="2305" data-duration="1000">Nil</div>
+                        <div class="animated-text" data-digit="2305">Almond Area</div>
+                    </div>
+                </div>
+  </div>
+  <div id="table">
+	<div class="CSSTableGenerator" >
+                <table id="Table">
+                    <tr>
+                        <td>
+                            Biscuit Type
+                        </td>
+                        <td >
+                            Minimum Dia
+                        </td>
+                        <td>
+                            Maximum Dia
+                        </td>
+						<td>
+                            Ovality
+                        </td>
+						<td>
+                            Over Baked
+                        </td>
+						<td>
+                            Under Baked
+                        </td>
+						<td>
+                            Almond Area
+                        </td>
+                    </tr>
+                </table>
+            </div>
+  </div>
+  
+  </div>
+
+
+
+    <div id="footerText">Powered By - &copy; <a href="http://www.castalialabs.com">castalialabs.com</a></div>
+  </div>
+
+</body>
+</html>
+

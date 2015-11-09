@@ -22,8 +22,7 @@ def valueList():
         mainData = {}
         data = soup.find_all("table")
         wholedata = [i.find_all(["state","district","market","commodity",\
-                         "variety","min_x0020_price","max_x0020_price","modal_x0020_price"]) for i in data]
-        
+                         "variety","min_x0020_price","max_x0020_price","modal_x0020_price"]) for i in data]        
         for i in wholedata:
                 if mainData.has_key(str(i[0].text)):
                         tempvalue = [str(j.text) for j in i]

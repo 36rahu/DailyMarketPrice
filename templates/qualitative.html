@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Drishtiman</title>
+  <link rel="shortcut icon" href="static/css/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="static/css/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/animate.css" rel="stylesheet">
+  <link href="static/css/index.css" rel = "stylesheet">
+  <link href="static/css/looks.css" rel="stylesheet">
+  <script src="static/js/sweet-alert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="static/css/sweet-alert.css">
+  <script src="static/js/ajax.js"></script>
+  <script src="static/js/highchart.js"></script>
+  <script src="static/js/index_qualitative.js"></script>
+  <script src="static/charts/Chart.js"></script>
+  <script src="http://cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+  <script>
+    webshims.setOptions('forms-ext', {types: 'date'});
+    webshims.polyfill('forms forms-ext');
+  </script>
+</head>
+<body>
+  <div id = "custom">
+			<div class ="bounceInDown animated">
+			<img class = "img-responsive" width="7%" src="static/images/logo.png" alt="logo">
+                        <div id="heading">
+			<h2 class="text-center">Qualitative Analysis</h2></div>
+			<a href="index" class="button_home">Home</a>
+			<a href="about" class="button_about">About</a>
+			<a href="threshold" class="button_threshold">Threshold</a>
+			<a href="report" class="button_report">Report</a>
+		</div>
+		</div>
+  <div class ="row">
+    <div class="col-md-3 form-class">
+      <form id="testform">
+          <br>
+	<p class = "starting" >Biscuit Type</p>
+        <select name="Biscuit_type" class = "starting" id="selectElementId"></select>
+        <p class = "starting">Start Date</p>
+        <input type="date" name="startdate" class = "starting">
+        <br>
+        <p class = "starting">End Date</p>
+        <input type = "date" name = "enddate" class = "starting">
+        <br>
+	<p class = "starting">Start Time</p>
+	<input type="time" name="starttime" class = "starting">
+        <br>
+	<p class = "starting">End Time</p>
+	<input type="time" name="endtime" class = "starting">
+        <br>
+	  <br>
+        <button class="buttonl btn btn-danger btn-md" id = "driver" type="button" value = "Load Data">LOAD DATA</button>
+      </form>
+    </div>
+    <div class = "col-md-5 graph" id="abc">
+      <canvas id="chart-area"/>
+    </div>
+    <img id="loadingimg" src="static/images/load.gif"/>
+    <div class = "col-md-4">
+      <h2>Statistics</h2>
+      <p id = "first-stat" class = "col-md-6 right-stat">Good Biscuit</p>
+      <p id = "stat-value1" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p1" class = "col-md-6 right-stat">0</p>
+	<p id = "nineth-stat" class = "col-md-6 right-stat">Bad Biscuit</p>
+      <p id = "stat-value9" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p9" class = "col-md-6 right-stat">0</p>
+      <p id = "second-stat" class = "col-md-6 right-stat">Under Diamenter</p>
+      <p id = "stat-value2" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p2" class = "col-md-6 right-stat">0</p>
+      <p id = "egiht-stat" class = "col-md-6 right-stat">Over Diamenter</p>
+      <p id = "stat-value8" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p8" class = "col-md-6 right-stat">0</p>
+      <p id = "third-stat" class = "col-md-6 right-stat">Oval Biscuit</p>
+      <p id = "stat-value3" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p3" class = "col-md-6 right-stat">0</p>
+      <p id = "forth-stat" class = "col-md-6 right-stat">Less Almond</p>
+      <p id = "stat-value4" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p4" class = "col-md-6 right-stat">0</p>
+      <p id = "fifth-stat" class = "col-md-6 right-stat">Cut Biscuit</p>
+      <p id = "stat-value5" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p5" class = "col-md-6 right-stat">0</p>
+      <p id = "sixth-stat" class = "col-md-6 right-stat">Over Baked</p>
+      <p id = "stat-value6" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p6" class = "col-md-6 right-stat">0</p>
+      <p id = "seventh-stat" class = "col-md-6 right-stat">Under Baked</p>
+      <p id = "stat-value7" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p7" class = "col-md-6 right-stat">0</p>
+ 	<p id = "tenth-stat" class = "col-md-6 right-stat">Total</p>
+      <p id = "stat-value10" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p10" class = "col-md-6 right-stat">0</p>
+    </div>
+  </div>
+  <div id="footerText">Powered By - &copy; <a href="http://www.castalialabs.com">castalialabs.com</a></div>
+
+</body>
+</html>

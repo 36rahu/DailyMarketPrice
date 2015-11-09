@@ -1,0 +1,201 @@
+<html>
+<head>
+  <title>Drishtiman</title>
+  <link rel="shortcut icon" href="static/css/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="static/css/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/animate.css" rel="stylesheet">
+  <link href="static/css/index.css" rel = "stylesheet">
+  <link href="static/css/looks.css" rel="stylesheet">
+  <script src="static/js/ajax.js"></script>
+  <script src="static/js/highchart.js"></script>
+  <script src="static/charts/Chart.js"></script>
+  <script src="http://cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+  <script>
+    webshims.setOptions('forms-ext', {types: 'date'});
+    webshims.polyfill('forms forms-ext');
+  </script>
+  <script type="text/javascript" language="javascript">
+  var d=0;
+  $(document).ready(function() {
+    $("#driver").click(function(event){
+      $("#loadingimg").show();
+      $.post(
+        "/chartdiagram",
+        $("#testform").serialize(),
+        function(data) {
+	  $("#loadingimg").hide();
+		  d=data;
+		  var k=d.split(" ");
+      var placeHolder = document.getElementById('stat-value1');
+      placeHolder.innerHTML=k[0];
+	var placeHolder = document.getElementById('stat-value_p1');
+      placeHolder.innerHTML=k[10];
+      var placeHolder = document.getElementById('stat-value2');
+      placeHolder.innerHTML=k[1];
+	var placeHolder = document.getElementById('stat-value_p2');
+      placeHolder.innerHTML=k[10];
+	var placeHolder = document.getElementById('stat-value9');
+      placeHolder.innerHTML=k[8];
+	var placeHolder = document.getElementById('stat-value_p9');
+      placeHolder.innerHTML=k[18];
+      var placeHolder = document.getElementById('stat-value3');
+      placeHolder.innerHTML=k[3];
+	var placeHolder = document.getElementById('stat-value_p3');
+      placeHolder.innerHTML=k[13];
+      var placeHolder = document.getElementById('stat-value4');
+      placeHolder.innerHTML=k[4];
+	var placeHolder = document.getElementById('stat-value_p4');
+      placeHolder.innerHTML=k[14];
+      var placeHolder = document.getElementById('stat-value5');
+      placeHolder.innerHTML=k[5];
+	var placeHolder = document.getElementById('stat-value_p5');
+      placeHolder.innerHTML=k[15];
+	var placeHolder = document.getElementById('stat-value6');
+      placeHolder.innerHTML=k[7];
+	var placeHolder = document.getElementById('stat-value_p6');
+      placeHolder.innerHTML=k[17];
+	var placeHolder = document.getElementById('stat-value7');
+      placeHolder.innerHTML=k[6];
+	var placeHolder = document.getElementById('stat-value_p7');
+      placeHolder.innerHTML=k[16];
+	var placeHolder = document.getElementById('stat-value8');
+      placeHolder.innerHTML=k[2];
+	var placeHolder = document.getElementById('stat-value_p8');
+      placeHolder.innerHTML=k[12];
+	var placeHolder = document.getElementById('stat-value10');
+      placeHolder.innerHTML=k[9];
+	var placeHolder = document.getElementById('stat-value_p10');
+      placeHolder.innerHTML=k[19];
+
+      fineldata = new Array();
+      var value_names = ["Under Diameter", "Over Diameter","Oval Biscuit","Less Almond","Cut Biscuit","Under Baked","Over Baked" ];
+      var m = [k[1],k[2],k[3],k[4],k[5],k[6],k[7]]
+      for(var i=0; i<m.length; i++)
+	  {
+	    fineldata[i]=new Array();
+	   for(var j=0; j<2; j++)
+	      {
+	      if (j==0) {fineldata[i][j] = value_names[i];}
+	      else { fineldata[i][j] = parseInt(m[i]);}
+	      }
+	  }
+      
+      var chartdata = {
+              chart: {
+	    renderTo: 'abc',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Defective Analysis'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Defective Analysis',
+            data: fineldata
+        }]
+    } 
+          if( window.myLine!==undefined)
+            window.myLine.destroy();
+
+          window.myLine = new Highcharts.Chart(chartdata)
+          $('#stage1').html(data);
+        }
+      );
+    });
+  });
+  </script>
+</head>
+<body>
+  <div id = "custom">
+			<div class ="bounceInDown animated">
+			<img class = "img-responsive" width="7%" src="static/images/logo.png" alt="logo">
+                        <div id="heading">
+			<h2 class="text-center">Qualitative Analysis</h2></div>
+			<a href="index" class="round-home_button">home</a>
+			<a href="about" class="round-about_button">about</a>
+			<a href="report" class="round-report_button">report</a>
+		</div>
+		</div>
+  <div class ="row">
+    <div class="col-md-3 form-class">
+      <form id="testform">
+	<br>
+        <p class = "starting">Start Date</p>
+        <input type="date" name="startdate" class = "starting">
+        <br>
+        <p class = "starting">End Date</p>
+        <input type = "date" name = "enddate" class = "starting">
+        <br>
+	<p class = "starting">Start Time</p>
+	<input type="time" name="starttime" class = "starting">
+        <br>
+	<p class = "starting">End Time</p>
+	<input type="time" name="endtime" class = "starting">
+        <br>
+	  <br>
+        <button class="buttonl btn btn-danger btn-md" id = "driver" type="button" value = "Load Data">LOAD DATA</button>
+      </form>
+    </div>
+    <div class = "col-md-5 graph" id="abc">
+      <canvas id="chart-area"/>
+    </div>
+    <img id="loadingimg" src="static/images/load.gif"/>
+    <div class = "col-md-4">
+      <h2>Statistics</h2>
+      <p id = "first-stat" class = "col-md-6 right-stat">Good Biscuit</p>
+      <p id = "stat-value1" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p1" class = "col-md-6 right-stat">0</p>
+	<p id = "nineth-stat" class = "col-md-6 right-stat">Bad Biscuit</p>
+      <p id = "stat-value9" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p9" class = "col-md-6 right-stat">0</p>
+      <p id = "second-stat" class = "col-md-6 right-stat">Under Diamenter</p>
+      <p id = "stat-value2" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p2" class = "col-md-6 right-stat">0</p>
+      <p id = "egiht-stat" class = "col-md-6 right-stat">Over Diamenter</p>
+      <p id = "stat-value8" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p8" class = "col-md-6 right-stat">0</p>
+      <p id = "third-stat" class = "col-md-6 right-stat">Oval Biscuit</p>
+      <p id = "stat-value3" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p3" class = "col-md-6 right-stat">0</p>
+      <p id = "forth-stat" class = "col-md-6 right-stat">Less Almond</p>
+      <p id = "stat-value4" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p4" class = "col-md-6 right-stat">0</p>
+      <p id = "fifth-stat" class = "col-md-6 right-stat">Cut Biscuit</p>
+      <p id = "stat-value5" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p5" class = "col-md-6 right-stat">0</p>
+      <p id = "sixth-stat" class = "col-md-6 right-stat">Over Baked</p>
+      <p id = "stat-value6" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p6" class = "col-md-6 right-stat">0</p>
+      <p id = "seventh-stat" class = "col-md-6 right-stat">Under Baked</p>
+      <p id = "stat-value7" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p7" class = "col-md-6 right-stat">0</p>
+ 	<p id = "tenth-stat" class = "col-md-6 right-stat">Total</p>
+      <p id = "stat-value10" class = "col-md-6 right-stat">0</p>
+	<p id = "stat-value_p10" class = "col-md-6 right-stat">0</p>
+    </div>
+  </div>
+  <div id="footerText">Powered By - &copy; <a href="http://www.castalialabs.com">castalialabs.com</a></div>
+
+</body>
+</html>

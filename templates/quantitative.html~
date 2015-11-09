@@ -1,0 +1,537 @@
+<html>
+<head>
+  <title>Drishtiman</title>
+  <link rel="shortcut icon" href="static/css/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="static/css/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/animate.css" rel="stylesheet">
+  <link href = "static/css/index.css" rel = "stylesheet">
+  <link href="static/css/qualitativeLooks.css" rel="stylesheet">
+  <script src="static/js/ajax.js"></script>
+  <script src="static/charts/Chart.js"></script>
+  <!--<script src="js/chart.js"></script>-->
+  <script src="static/js/highchart.js"></script>
+<script src="static/js/exporting.js"></script>
+<script src="http://cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+  <script>
+    webshims.setOptions('forms-ext', {types: 'date'});
+    webshims.polyfill('forms forms-ext');
+  </script>
+  <script type="text/javascript" language="javascript">
+  var d=0;
+  $(document).ready(function() {
+    $("#diameter").click(function(event){
+      $("#loadingimg").show();
+      var data = $("#testform").serializeArray();
+      data.push({ name: "selected", value: "Diameter" });
+      $.post(
+        "/linegraph",
+        data,
+        function(data) {
+	  $("#loadingimg").hide();
+          d=data;
+          var 	k=d.split(' ');
+          var majoraxis = [];
+	  var dateData = [];
+	  var dateutc = [];
+	  var datestore = [];
+	  var fineldata = new Array();
+	  
+          var count = 0;
+          for (var i = 0 ; i < k.length; i++) {
+            if (i%2==1) {
+              majoraxis[count]=k[i];
+              count++;
+            }
+	    else if (i%2==0) {
+	      dateData[count]=k[i];
+	    }
+          }
+	j = 0;
+	for(var i=0; i<majoraxis.length; i++)
+	{ majoraxis[i] = parseFloat(majoraxis[i]);
+	  dateutc = dateData[i].split('-');
+	  datestore[j] = Date.UTC(dateutc[0],dateutc[1],dateutc[2],dateutc[3],dateutc[4],dateutc[5]);
+	  j++;
+	}
+	for(var i=0; i<majoraxis.length; i++)
+	  {
+	    fineldata[i]=new Array();
+	   for(var j=0; j<2; j++)
+	      {
+	      if (j==0) {fineldata[i][j] = datestore[i];}
+	      else { fineldata[i][j] = majoraxis[i];}
+	      }
+	  }
+	var chartdata = {
+        chart: {
+            type: 'spline',
+	    renderTo: 'abc'
+        },
+        title: {
+            text: 'Major Axis Graph'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Major Axis (in mm)'
+            }
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+        series: [{
+            name: 'Major Axis',
+            data: fineldata
+          }]
+    } 
+          if( window.myLine!==undefined)
+            window.myLine.destroy();
+
+          window.myLine = new Highcharts.Chart(chartdata)
+
+              $('#stage1').html(data);
+            }
+      );
+    });
+    
+  });
+  </script>
+  <script type="text/javascript" language="javascript">
+   var d=0;
+  $(document).ready(function() {
+    $("#minor").click(function(event){
+      $("#ovality").show();
+      var data = $("#testform").serializeArray();
+      data.push({ name: "selected", value: "Ovality" });
+      $.post(
+        "/linegraph",
+        data,
+        function(data) {
+	  $("#loadingimg").hide();
+          d=data;
+          var k=d.split(' ');
+
+          var minoraxis = [];
+	  var dateData = [];
+	  var dateutc = [];
+	  var datestore = [];
+	  var fineldata = new Array();
+	  
+          var count = 0;
+          for (var i = 0 ; i < k.length; i++) {
+            if (i%2==1) {
+              minoraxis[count]=k[i];
+              count++;
+            }
+	    else if (i%2==0) {
+	      dateData[count]=k[i];
+	    }
+          }
+	j = 0;
+	for(var i=0; i<minoraxis.length; i++)
+	{ minoraxis[i] = parseFloat(minoraxis[i]);
+	  dateutc = dateData[i].split('-');
+	  dateutc[1] = parseInt(dateutc[1])-1;
+	  datestore[j] = Date.UTC(dateutc[0],dateutc[1],dateutc[2],dateutc[3],dateutc[4],dateutc[5]);
+	  j++;
+	}
+	for(var i=0; i<minoraxis.length; i++)
+	  {
+	    fineldata[i]=new Array();
+	   for(var j=0; j<2; j++)
+	      {
+	      if (j==0) {fineldata[i][j] = datestore[i];}
+	      else { fineldata[i][j] = minoraxis[i];}
+	      }
+	  }
+	var chartdata = {
+        chart: {
+            type: 'spline',
+	    renderTo: 'abc'
+        },
+        title: {
+            text: 'Minor Axis Graph'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Minor Axis (in mm)'
+            }
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+        series: [{
+            name: 'Minor Axis',
+            data: fineldata
+          }]
+    } 
+          if( window.myLine!==undefined)
+            window.myLine.destroy();
+
+          window.myLine = new Highcharts.Chart(chartdata)
+
+              $('#stage1').html(data);
+            }
+      );
+    });
+    
+  });
+  </script>
+  <script type="text/javascript" language="javascript">
+    var d=0;
+  $(document).ready(function() {
+    $("#almsize").click(function(event){
+      $("#loadingimg").show();
+      var data = $("#testform").serializeArray();
+      data.push({ name: "selected", value: "AlmondArea" });
+      $.post(
+        "/linegraph",
+        data,
+        function(data) {
+	  $("#loadingimg").hide();
+          d=data;
+          var k=d.split(' ');
+
+          var almsize = [];
+	  var dateData = [];
+	  var dateutc = [];
+	  var datestore = [];
+	  var fineldata = new Array();
+	  
+          var count = 0;
+          for (var i = 0 ; i < k.length; i++) {
+            if (i%2==1) {
+              almsize[count]=k[i];
+              count++;
+            }
+	    else if (i%2==0) {
+	      dateData[count]=k[i];
+	    }
+          }
+	j = 0;
+	for(var i=0; i<almsize.length; i++)
+	{ almsize[i] = parseFloat(almsize[i]);
+	  dateutc = dateData[i].split('-');
+	  dateutc[1] = parseInt(dateutc[1])-1;
+	  datestore[j] = Date.UTC(dateutc[0],dateutc[1],dateutc[2],dateutc[3],dateutc[4],dateutc[5]);
+	  j++;
+	}
+	for(var i=0; i<almsize.length; i++)
+	  {
+	    fineldata[i]=new Array();
+	   for(var j=0; j<2; j++)
+	      {
+	      if (j==0) {fineldata[i][j] = datestore[i];}
+	      else { fineldata[i][j] = almsize[i];}
+	      }
+	  }
+	var chartdata = {
+        chart: {
+            type: 'spline',
+	    renderTo: 'abc'
+        },
+        title: {
+            text: 'Almond Area Graph'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Almond Area (in mm)'
+            }
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+        series: [{
+            name: 'Almond Area',
+            data: fineldata
+          }]
+    } 
+          if( window.myLine!==undefined)
+            window.myLine.destroy();
+
+          window.myLine = new Highcharts.Chart(chartdata)
+
+              $('#stage1').html(data);
+            }
+      );
+    });
+  });
+  </script>
+  <script type="text/javascript" language="javascript">
+    var d=0;
+  $(document).ready(function() {
+    $("#cutsize").click(function(event){
+      $("#loadingimg").show();
+      var data = $("#testform").serializeArray();
+      data.push({ name: "selected", value: "Cutsize" });
+      $.post(
+        "/linegraph",
+        data,
+        function(data) {
+	  $("#loadingimg").hide();
+          d=data;
+          var k=d.split(' ');
+
+          var cutsize = [];
+	  var dateData = [];
+	  var dateutc = [];
+	  var datestore = [];
+	  var fineldata = new Array();
+	  
+          var count = 0;
+          for (var i = 0 ; i < k.length; i++) {
+            if (i%2==1) {
+              cutsize[count]=k[i];
+              count++;
+            }
+	    else if (i%2==0) {
+	      dateData[count]=k[i];
+	    }
+          }
+	j = 0;
+	for(var i=0; i<cutsize.length; i++)
+	{ cutsize[i] = parseFloat(cutsize[i]);
+	  dateutc = dateData[i].split('-');
+	  dateutc[1] = parseInt(dateutc[1])-1;
+	  datestore[j] = Date.UTC(dateutc[0],dateutc[1],dateutc[2],dateutc[3],dateutc[4],dateutc[5]);
+	  j++;
+	}
+	for(var i=0; i<cutsize.length; i++)
+	  {
+	    fineldata[i]=new Array();
+	   for(var j=0; j<2; j++)
+	      {
+	      if (j==0) {fineldata[i][j] = datestore[i];}
+	      else { fineldata[i][j] = cutsize[i];}
+	      }
+	  }
+	var chartdata = {
+        chart: {
+            type: 'spline',
+	    renderTo: 'abc'
+        },
+        title: {
+            text: 'Cut Size Graph'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Cut Size (in mm)'
+            }
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+        series: [{
+            name: 'Cut Size',
+            data: fineldata
+          }]
+    } 
+          if( window.myLine!==undefined)
+            window.myLine.destroy();
+
+          window.myLine = new Highcharts.Chart(chartdata)
+
+              $('#stage1').html(data);
+            }
+      );
+    });
+  });
+  </script>
+  <script type="text/javascript" language="javascript">
+     var d=0;
+  $(document).ready(function() {
+    $("#bakemea").click(function(event){
+      $("#loadingimg").show();
+      var data = $("#testform").serializeArray();
+      data.push({ name: "selected", value: "BakeMeasure" });
+      $.post(
+        "/linegraph",
+        data,
+        function(data) {
+	  $("#loadingimg").hide();
+          d=data;
+          var k=d.split(' ');
+
+          var colordi = [];
+	  var dateData = [];
+	  var dateutc = [];
+	  var datestore = [];
+	  var fineldata = new Array();
+	  
+          var count = 0;
+          for (var i = 0 ; i < k.length; i++) {
+            if (i%2==1) {
+              colordi[count]=k[i];
+              count++;
+            }
+	    else if (i%2==0) {
+	      dateData[count]=k[i];
+	    }
+          }
+	j = 0;
+	for(var i=0; i<colordi.length; i++)
+	{ colordi[i] = parseFloat(colordi[i]);
+	  dateutc = dateData[i].split('-');
+	  dateutc[1] = parseInt(dateutc[1])-1;
+	  datestore[j] = Date.UTC(dateutc[0],dateutc[1],dateutc[2],dateutc[3],dateutc[4],dateutc[5]);
+	  j++;
+	}
+	for(var i=0; i<colordi.length; i++)
+	  {
+	    fineldata[i]=new Array();
+	   for(var j=0; j<2; j++)
+	      {
+	      if (j==0) {fineldata[i][j] = datestore[i];}
+	      else { fineldata[i][j] = colordi[i];}
+	      }
+	  }
+	var chartdata = {
+        chart: {
+            type: 'spline',
+	    renderTo: 'abc'
+        },
+        title: {
+            text: 'Color Difference Graph'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: { // don't display the dummy year
+                month: '%e. %b',
+                year: '%b'
+            },
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Color Diffrence (in mm)'
+            }
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+        series: [{
+            name: 'Color Diffrence',
+            data: fineldata
+          }]
+    } 
+          if( window.myLine!==undefined)
+            window.myLine.destroy();
+
+          window.myLine = new Highcharts.Chart(chartdata)
+
+              $('#stage1').html(data);
+            }
+      );
+    });
+  });
+  </script>
+ 
+</head>
+<body>
+  <div id = "custom">
+			<div class ="bounceInDown animated">
+			<img class = "img-responsive" width="7%" src="static/images/logo.png" alt="logo">
+                        <div id="heading">
+			<h2 class="text-center">Quantitative Analysis</h2></div>
+			<a href="index" class="round-home_button">home</a>
+			<a href="about" class="round-about_button">about</a>
+			<a href="report" class="round-report_button">report</a>
+		</div>
+		</div>
+  <div class="col-md-3 form-class">
+    <form id="testform">
+      <p class = "starting">Start Date</p>
+      <input type="date" name="startdate" class = "starting">
+      <br>
+      <p class = "starting">End Date</p>
+      <input type = "date" name = "enddate" class = "starting">
+      <br>
+      <p class = "starting">Start Time</p>
+	<input type="time" name="starttime" class = "starting">
+        <br>
+	<p class = "starting">End Time</p>
+	<input type="time" name="endtime" class = "starting">
+      <br>
+      <br>
+      <input type = "radio" name = "selector" id = "diameter" class = "radio-css">Diameter<br>
+      <input type = "radio" name = "selector" id = "ovality" class = "radio-css">Ovality<br>
+      <input type = "radio" name = "selector" id = "almsize" class = "radio-css">Almond Area<br>
+      <input type = "radio" name = "selector" id = "cutsize" class = "radio-css">Cut Size<br>
+      <input type = "radio" name = "selector" id = "bakemea" class = "radio-css">Bake Measure<br>
+	  <br>
+    </form>
+  </div>
+  <img id="loadingimg" src="static/images/load.gif"/>
+  <div class = "col-md-9 graph" id="abc">
+    <canvas id="canvas"/>
+  </div>
+  </div>
+  <div id="footerText">Powered By - &copy; <a href="http://www.castalialabs.com">castalialabs.com</a></div>
+
+</body>
+</html>
+
